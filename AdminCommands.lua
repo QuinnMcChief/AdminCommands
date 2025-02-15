@@ -54,6 +54,11 @@ local function getPlayer(chattedString: string): Player | nil
 	return nil
 end
 
+--> Uses chattedString to find instance whose name most closely resembles the any child of the parent argument.
+--> getClosestChildByName finds name that closest matches chattedString by taking the lowered substring of
+--> each child's name (starting at the beginning) and seeing whether they match chattedString. If multiple
+--> instance's names match chattedString, getClosestChildByName returns nil.
+--> EXAMPLE USE CASE: getClosestChildByName("the hidd", game.Teams) would retrieve the "The HiddenDevs Team" team.
 local function getClosestChildByName(chattedString: string, parent: Instance): Instance | nil
 	if not parent then warn("parent not given for getClosestChildByName!") return end
 	chattedString = tostring(chattedString)
@@ -357,7 +362,7 @@ local commands = {
 
 Players.PlayerAdded:Connect(function(player)
 	local playerIsAdmin = table.find(Admins, player.UserId)
-	if --[[playerIsAdmin]]true then
+	if playerIsAdmin then
 		player.CharacterAdded:Connect(function(character)
 			script.ClickToTeleport:Clone().Parent = character
 		end)
