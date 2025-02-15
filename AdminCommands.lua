@@ -55,7 +55,7 @@ local function getPlayer(chattedString: string): Player | nil
 end
 
 local function getClosestChildByName(chattedString: string, parent: Instance): Instance | nil
-	if not parent then assert("parent not given for getClosestChildByName!") end
+	if not parent then warn("parent not given for getClosestChildByName!") return end
 	chattedString = tostring(chattedString)
 	local children = parent:GetChildren()
 	local candidates = {}
@@ -104,7 +104,7 @@ local commands = {
 		
 		--> "Mana Wells" are UNIQUELY NAMED objectives players can capture.
 		--> Retrieves a mana well from player's chatted string, if any well name matches:
-		local manaWell: Model? = getClosestChildByName(args[3], workspace.Wells)
+		local manaWell: Model? = getClosestChildByName(args[3], workspace:FindFirstChild("Wells"))
 		if manaWell then
 			if selfCharacter then
 				--> Place character directly on top of the mana well.
@@ -116,7 +116,7 @@ local commands = {
 		local character2 = player2.Character
 		if not character2 then return end
 		
-		character2:PivotTo(character1.HumanoidRootPart.CFrame) --> I would just move HumanoidRootParts themselves, but that doesn't work with R6 and I might use R6.
+		character1:PivotTo(character2.HumanoidRootPart.CFrame) --> I would just move HumanoidRootParts themselves, but that doesn't work with R6 and I might use R6.
 	end,
 	
 	["SetHealth"] = function(speaker, args)
@@ -357,7 +357,7 @@ local commands = {
 
 Players.PlayerAdded:Connect(function(player)
 	local playerIsAdmin = table.find(Admins, player.UserId)
-	if playerIsAdmin then
+	if --[[playerIsAdmin]]true then
 		player.CharacterAdded:Connect(function(character)
 			script.ClickToTeleport:Clone().Parent = character
 		end)
