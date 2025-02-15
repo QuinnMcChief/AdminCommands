@@ -184,7 +184,6 @@ local commands = {
 			local character = speaker.Character
 			if character then
 				character.Humanoid.JumpPower = arg1
-				print("A")
 			end
 		else
 			local player = getPlayer(args[1])
@@ -271,12 +270,10 @@ local commands = {
 		--> example args: {[1] = somePlayer, ...}
 		--> example command: ";changeteam somePlayer newTeam"
 		--> (Keep in mind, team name could consist of multiple words, so we string all arguments after somePlayer together to account for that)
-		print("A")
 		local arg1 = args[1]
 		if not arg1 then warn("No arg1 was given for ChangeTeam!") return end
 		local victimPlayer = getPlayer(args[1])
 		if victimPlayer then
-			print("B1")
 			
 			--> In case this game has teams with multiple words, we need to string together the rest of the arguments
 			--> and pass that into getClosestChildByName, instead of simply passing args[2] into it!
@@ -287,14 +284,11 @@ local commands = {
 			entireTeamString = entireTeamString:sub(1, entireTeamString:len() - 1) -- Remove the extra space at the end!
 			local teamToChangeTo = getClosestChildByName(entireTeamString, game.Teams)
 			if teamToChangeTo then
-				print("C1")
 				victimPlayer.Team = teamToChangeTo
 			end
 		else
-			print("B2")
 			local teamToChangeTo = getClosestChildByName(arg1, game.Teams)
 			if teamToChangeTo then
-				print("C2")
 				speaker.Team = teamToChangeTo
 			end
 		end
